@@ -372,6 +372,16 @@ module.exports = function(client) {
       tableSql = new SchemaBuilder().setSchema('private', true).toSQL();
       expect(tableSql[0].sql).to.equal('set local schema to "private"');
     });
+
+    it("sets search path", function() {
+      tableSql = new SchemaBuilder().setSearchPath('private', 'public').toSQL();
+      expect(tableSql[0].sql).to.equal('set search_path to "private", "public"');
+    });
+
+    it("sets local search path", function() {
+      tableSql = new SchemaBuilder().setSearchPath('private', 'public', true).toSQL();
+      expect(tableSql[0].sql).to.equal('set local search_path to "private", "public"');
+    });
   });
 
 };
