@@ -363,6 +363,15 @@ module.exports = function(client) {
       expect(tableSql[0].sql).to.equal('alter table "users" add column "foo" bytea');
     });
 
+    it("sets schema", function() {
+      tableSql = new SchemaBuilder().setSchema('private').toSQL();
+      expect(tableSql[0].sql).to.equal('set schema to "private"');
+    });
+
+    it("sets local schema", function() {
+      tableSql = new SchemaBuilder().setSchema('private', true).toSQL();
+      expect(tableSql[0].sql).to.equal('set local schema to "private"');
+    });
   });
 
 };
